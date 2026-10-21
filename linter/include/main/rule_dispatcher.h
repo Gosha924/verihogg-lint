@@ -42,6 +42,7 @@
 #include "rules/extern_constraint_undeclared.h"
 #include "rules/extern_function_undeclared.h"
 #include "rules/extern_task_undeclared.h"
+#include "rules/legal_file_extensions.h"
 #include "rules/fatal_rule.h"
 #include "rules/foreach_loop_condition.h"
 #include "rules/function_implementation_internal_return_type.h"
@@ -254,6 +255,9 @@ const auto allRules = std::to_array<Rule>({
      .description =
          "Instance  of checker is not allowed in procedural code of checker",
      .check = CheckIllegalCheckerInstance},
+     {.idName = "ILLEGAL_FILE_EXTENSION",
+    .description = "Source file must use an allowed extension (.sv, .svh)",
+    .check = CheckLegalFileExtensions},
 });
 
 constexpr size_t AllRulesSize = allRules.size();
