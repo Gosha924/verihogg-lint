@@ -89,6 +89,7 @@ enum LintIdEnum : uint16_t {
   LINT_UNDECLARED_CHECKER,
   LINT_ILLEGAL_CHECKER_INSTANCE,
   LINT_ILLEGAL_FILE_EXTENSION,
+   LINT_ONE_MODULE_PER_FILE,
 };
 // NOLINTEND(cppcoreguidelines-use-enum-class)
 
@@ -314,7 +315,9 @@ inline constexpr std::array kLintRules = {
     LintRuleInfo{.type = LINT_ILLEGAL_CHECKER_INSTANCE,
                  .text = "Illegal checker instance %s"},
     LintRuleInfo{.type = LINT_ILLEGAL_FILE_EXTENSION,
-                    .text = "File has illegal extension '%s': ""only .sv and .svh are allowed"},
+                .text = "File has illegal extension '%s': ""only .sv and .svh are allowed"},
+    LintRuleInfo{.type = LINT_ONE_MODULE_PER_FILE,
+                .text = "%s"}
 };
 
 inline void RegisterLintRules() {

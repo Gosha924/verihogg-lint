@@ -42,7 +42,6 @@
 #include "rules/extern_constraint_undeclared.h"
 #include "rules/extern_function_undeclared.h"
 #include "rules/extern_task_undeclared.h"
-#include "rules/legal_file_extensions.h"
 #include "rules/fatal_rule.h"
 #include "rules/foreach_loop_condition.h"
 #include "rules/function_implementation_internal_return_type.h"
@@ -62,6 +61,7 @@
 #include "rules/inside_operator_range.h"
 #include "rules/invalid_liblist.h"
 #include "rules/logical_negation.h"
+#include "rules/legal_file_extensions.h"
 #include "rules/method_implementation_argument_type.h"
 #include "rules/method_override_argument_name.h"
 #include "rules/missing_for_loop_condition.h"
@@ -73,6 +73,7 @@
 #include "rules/multiple_bins.h"
 #include "rules/multiple_dot_star_connection.h"
 #include "rules/nof_parameter_override.h"
+#include "rules/one_module_per_file.h"
 #include "rules/parameter_dynamic_array.h"
 #include "rules/parameter_override.h"
 #include "rules/prototype_return_data_type.h"
@@ -258,6 +259,9 @@ const auto allRules = std::to_array<Rule>({
      {.idName = "ILLEGAL_FILE_EXTENSION",
     .description = "Source file must use an allowed extension (.sv, .svh)",
     .check = CheckLegalFileExtensions},
+    {.idName = "ONE_MODULE_PER_FILE",
+   .description = "Only one class/interface/package/module per file",
+   .check = CheckOneModulePerFile},
 });
 
 constexpr size_t AllRulesSize = allRules.size();
