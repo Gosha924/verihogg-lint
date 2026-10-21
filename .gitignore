@@ -35,3 +35,6 @@ build.log
 /linter-temp/build
 /linter-temp/dbuild
 /linter-temp/coverage-build
+
+# CTest runtime artifacts
+/Testing/
