@@ -89,7 +89,8 @@ enum LintIdEnum : uint16_t {
   LINT_UNDECLARED_CHECKER,
   LINT_ILLEGAL_CHECKER_INSTANCE,
   LINT_ILLEGAL_FILE_EXTENSION,
-   LINT_ONE_MODULE_PER_FILE,
+  LINT_ONE_MODULE_PER_FILE,
+  LINT_INCLUDE_WITH_PATH,
 };
 // NOLINTEND(cppcoreguidelines-use-enum-class)
 
@@ -317,7 +318,9 @@ inline constexpr std::array kLintRules = {
     LintRuleInfo{.type = LINT_ILLEGAL_FILE_EXTENSION,
                 .text = "File has illegal extension '%s': ""only .sv and .svh are allowed"},
     LintRuleInfo{.type = LINT_ONE_MODULE_PER_FILE,
-                .text = "%s"}
+                .text = "%s"},
+    LintRuleInfo{.type = LINT_INCLUDE_WITH_PATH,
+                .text = "Include directive uses a path '%s'."},
 };
 
 inline void RegisterLintRules() {
