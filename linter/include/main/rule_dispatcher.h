@@ -57,10 +57,12 @@
 #include "rules/implement_interface_class.h"
 #include "rules/implicit_data_type.h"
 #include "rules/incomplete_assignment_pattern.h"
+#include "rules/include_without_path.h"
 #include "rules/inside_operator.h"
 #include "rules/inside_operator_range.h"
 #include "rules/invalid_liblist.h"
 #include "rules/logical_negation.h"
+#include "rules/legal_file_extensions.h"
 #include "rules/method_implementation_argument_type.h"
 #include "rules/method_override_argument_name.h"
 #include "rules/missing_for_loop_condition.h"
@@ -72,6 +74,7 @@
 #include "rules/multiple_bins.h"
 #include "rules/multiple_dot_star_connection.h"
 #include "rules/nof_parameter_override.h"
+#include "rules/one_module_per_file.h"
 #include "rules/parameter_dynamic_array.h"
 #include "rules/parameter_override.h"
 #include "rules/prototype_return_data_type.h"
@@ -254,6 +257,12 @@ const auto allRules = std::to_array<Rule>({
      .description =
          "Instance  of checker is not allowed in procedural code of checker",
      .check = CheckIllegalCheckerInstance},
+     {.idName = "ILLEGAL_FILE_EXTENSION",
+    .description = "Source file must use an allowed extension (.sv, .svh)",
+    .check = CheckLegalFileExtensions},
+    {.idName = "ONE_MODULE_PER_FILE",
+   .description = "Only one class/interface/package/module per file",
+   .check = CheckOneModulePerFile},
 });
 
 constexpr size_t AllRulesSize = allRules.size();
@@ -390,6 +399,9 @@ const auto globalRules = std::to_array<GlobalRule>({
     {.idName = "UNDECLARED_CHECKER",
      .description = "Checker is not declared",
      .check = CheckUndeclaredChecker},
+    {.idName = "INCLUDE_WITH_PATH",
+     .description = "Include directive must not reference a path",
+     .check = CheckIncludeWithoutPath},
 });
 
 constexpr size_t AllGlobalRulesSize = globalRules.size();
