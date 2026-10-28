@@ -57,6 +57,7 @@
 #include "rules/implement_interface_class.h"
 #include "rules/implicit_data_type.h"
 #include "rules/incomplete_assignment_pattern.h"
+#include "rules/include_without_path.h"
 #include "rules/inside_operator.h"
 #include "rules/inside_operator_range.h"
 #include "rules/invalid_liblist.h"
@@ -398,6 +399,9 @@ const auto globalRules = std::to_array<GlobalRule>({
     {.idName = "UNDECLARED_CHECKER",
      .description = "Checker is not declared",
      .check = CheckUndeclaredChecker},
+    {.idName = "INCLUDE_WITH_PATH",
+     .description = "Include directive must not reference a path",
+     .check = CheckIncludeWithoutPath},
 });
 
 constexpr size_t AllGlobalRulesSize = globalRules.size();

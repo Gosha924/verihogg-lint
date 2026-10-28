@@ -235,6 +235,7 @@ set(LINTER_SRC
     linter/src/rules/undeclared_checker.cpp
     linter/src/rules/illegal_checker_instance.cpp
     linter/src/rules/one_module_per_file.cpp
+    linter/src/rules/include_without_path.cpp
     linter/src/fix/source_manager.cpp
     linter/src/fix/replacement.cpp
     linter/src/fix/suggestion_printer.cpp

@@ -38,3 +38,4 @@ build.log
 
 # CTest runtime artifacts
 /Testing/
+.clangd
