@@ -16,27 +16,27 @@
 namespace SL = SURELOG;
 
 namespace {
-auto  IsExtensionAllowed(const std::string& extension, const std::vector<std::string>& allowedExtensions) -> bool {
-    for (const std::string& allowed: allowedExtensions) {
-        if (extension == allowed) {
-            return true;
-        }
+auto IsExtensionAllowed(const std::string& extension,
+                        const std::vector<std::string>& allowedExtensions)
+    -> bool {
+  for (const std::string& allowed : allowedExtensions) {
+    if (extension == allowed) {
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 
-} // namespace
+}  // namespace
 
 void CheckLegalFileExtensions(const SL::FileContent* fileContent,
                               SL::ErrorContainer* errors,
                               SL::SymbolTable* symbols) {
-
-
-    if (fileContent == nullptr) {
-        return;
-    }
-    const std::vector<std::string> allowedExtensions = {".sv", ".svh"};
-    const std::filesystem::path filePath =
+  if (fileContent == nullptr) {
+    return;
+  }
+  const std::vector<std::string> allowedExtensions = {".sv", ".svh"};
+  const std::filesystem::path filePath =
       SL::FileSystem::getInstance()->toPath(fileContent->getFileId());
 
   std::string extension = filePath.extension().string();
@@ -49,5 +49,4 @@ void CheckLegalFileExtensions(const SL::FileContent* fileContent,
     ReportError(fileContent, fileContent->getRootNode(), extension,
                 verihogg_lint::LINT_ILLEGAL_FILE_EXTENSION, errors, symbols);
   }
-
 }

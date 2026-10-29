@@ -6,13 +6,12 @@
 #include "rules/legal_file_extensions.h"
 #include "utils.h"
 
-
 namespace fs = std::filesystem;
 
 namespace {
 
 auto BasePath() -> const fs::path {
-    return fs::current_path() / ".." / ".."/ "tests" / "FileChecks";
+  return fs::current_path() / ".." / ".." / "tests" / "FileChecks";
 }
 
 }  // namespace

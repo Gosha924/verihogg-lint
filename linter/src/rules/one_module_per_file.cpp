@@ -95,7 +95,8 @@ void CheckOneModulePerFile(const SL::FileContent* fileContent,
   if (topLevelCount > 1) {
     const std::string message =
         "file contains " + std::to_string(topLevelCount) +
-        " top-level entities (class/interface/package/module), only one is allowed";
+        " top-level entities (class/interface/package/module), only one is "
+        "allowed";
     ReportError(fileContent, firstTopLevelNode, message,
                 verihogg_lint::LINT_ONE_MODULE_PER_FILE, errors, symbols);
   }
