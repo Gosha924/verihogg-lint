@@ -91,6 +91,7 @@ enum LintIdEnum : uint16_t {
   LINT_ILLEGAL_FILE_EXTENSION,
   LINT_ONE_MODULE_PER_FILE,
   LINT_INCLUDE_WITH_PATH,
+  LINT_CONDITIONAL_BLOCKS_CROSS_FILE,
 };
 // NOLINTEND(cppcoreguidelines-use-enum-class)
 
@@ -321,6 +322,8 @@ inline constexpr std::array kLintRules = {
                 .text = "%s"},
     LintRuleInfo{.type = LINT_INCLUDE_WITH_PATH,
                 .text = "Include directive uses a path '%s'."},
+    LintRuleInfo{.type = LINT_CONDITIONAL_BLOCKS_CROSS_FILE,
+                .text = "Conditional preprocessing block is not balanced in file '%s'"}
 };
 
 inline void RegisterLintRules() {
