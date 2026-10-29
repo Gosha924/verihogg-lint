@@ -2,6 +2,8 @@
 
 #include <Surelog/Common/FileSystem.h>
 #include <Surelog/Design/FileContent.h>
+#include <Surelog/ErrorReporting/ErrorContainer.h>
+#include <Surelog/SourceCompile/SymbolTable.h>
 
 #include <cctype>
 #include <filesystem>
