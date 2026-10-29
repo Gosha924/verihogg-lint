@@ -21,6 +21,7 @@
 #include "rules/circular_inheritance.h"
 #include "rules/class_variable_lifetime.h"
 #include "rules/concatenation_multiplier.h"
+#include "rules/conditional_blocks_cross_file.h"
 #include "rules/constraint_implemention_scope.h"
 #include "rules/covergroup_expression.h"
 #include "rules/coverpoint_expression_type.h"
@@ -402,6 +403,9 @@ const auto globalRules = std::to_array<GlobalRule>({
     {.idName = "INCLUDE_WITH_PATH",
      .description = "Include directive must not reference a path",
      .check = CheckIncludeWithoutPath},
+    {.idName = "CONDITIONAL_BLOCKS_CROSS_FILE",
+     .description = "ifdef/ifndef compiler directives should have their corresponding endif directive in the same file.",
+     .check = CheckConditionalBlocksCrossFile},
 });
 
 constexpr size_t AllGlobalRulesSize = globalRules.size();
