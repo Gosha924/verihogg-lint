@@ -75,7 +75,6 @@
 #include "rules/multiple_bins.h"
 #include "rules/multiple_dot_star_connection.h"
 #include "rules/nof_parameter_override.h"
-#include "rules/one_module_per_file.h"
 #include "rules/parameter_dynamic_array.h"
 #include "rules/parameter_override.h"
 #include "rules/prototype_return_data_type.h"
@@ -261,9 +260,6 @@ const auto allRules = std::to_array<Rule>({
     {.idName = "ILLEGAL_FILE_EXTENSION",
      .description = "Source file must use an allowed extension (.sv, .svh)",
      .check = CheckLegalFileExtensions},
-    {.idName = "ONE_MODULE_PER_FILE",
-     .description = "Only one class/interface/package/module per file",
-     .check = CheckOneModulePerFile},
 });
 
 constexpr size_t AllRulesSize = allRules.size();

@@ -230,24 +230,6 @@ target_include_directories(file_extensions_checks_test
 include(GoogleTest)
 gtest_discover_tests(file_extensions_checks_test)
 
-add_executable(one_module_per_file_test $<TARGET_OBJECTS:verihoggLintLib> one_module_per_file_test.cpp utils.cpp)
-
-target_link_libraries(one_module_per_file_test PUBLIC verihoggLintLib)
-target_link_libraries(one_module_per_file_test PUBLIC gtest gtest_main)
-target_link_libraries(one_module_per_file_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(one_module_per_file_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(one_module_per_file_test)
-
 add_executable(include_without_path_test $<TARGET_OBJECTS:verihoggLintLib> include_without_path_test.cpp utils.cpp)
 
 target_link_libraries(include_without_path_test PUBLIC verihoggLintLib)
