@@ -209,3 +209,6 @@
    
 - `ILLEGAL_CHECKER_INSTANCE`
    Instance # of checker # not allowed in procedural code of checker
+
+- `CONSTRUCTS_CROSS_FILE`
+  Language constructs must start and end in the same file
