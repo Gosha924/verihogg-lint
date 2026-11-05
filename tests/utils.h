@@ -42,4 +42,10 @@ void CheckWithNoErrorsExpected(
     const fs::path& tests_path,
     const std::function<void(SL::Design*, SL::ErrorContainer*,
                              SL::SymbolTable*)>& check_func);
+
+void CheckSingleFileWithErrorsExpected(
+    const fs::path& file_path, verihogg_lint::LintIdEnum errorIdExpected,
+    const std::unordered_set<SURELOG::ErrorDefinition::ErrorType>& ignoreList,
+    const std::function<void(SL::Design*, SL::ErrorContainer*,
+                             SL::SymbolTable*)>& check_func);
 }  // namespace global

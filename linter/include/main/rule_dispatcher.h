@@ -23,6 +23,7 @@
 #include "rules/concatenation_multiplier.h"
 #include "rules/conditional_blocks_cross_file.h"
 #include "rules/constraint_implemention_scope.h"
+#include "rules/constructs_cross_file.h"
 #include "rules/covergroup_expression.h"
 #include "rules/coverpoint_expression_type.h"
 #include "rules/dpi_decl_string.h"
@@ -57,13 +58,13 @@
 #include "rules/implement_class.h"
 #include "rules/implement_interface_class.h"
 #include "rules/implicit_data_type.h"
-#include "rules/incomplete_assignment_pattern.h"
 #include "rules/include_without_path.h"
+#include "rules/incomplete_assignment_pattern.h"
 #include "rules/inside_operator.h"
 #include "rules/inside_operator_range.h"
 #include "rules/invalid_liblist.h"
-#include "rules/logical_negation.h"
 #include "rules/legal_file_extensions.h"
+#include "rules/logical_negation.h"
 #include "rules/method_implementation_argument_type.h"
 #include "rules/method_override_argument_name.h"
 #include "rules/missing_for_loop_condition.h"
@@ -258,12 +259,12 @@ const auto allRules = std::to_array<Rule>({
      .description =
          "Instance  of checker is not allowed in procedural code of checker",
      .check = CheckIllegalCheckerInstance},
-     {.idName = "ILLEGAL_FILE_EXTENSION",
-    .description = "Source file must use an allowed extension (.sv, .svh)",
-    .check = CheckLegalFileExtensions},
+    {.idName = "ILLEGAL_FILE_EXTENSION",
+     .description = "Source file must use an allowed extension (.sv, .svh)",
+     .check = CheckLegalFileExtensions},
     {.idName = "ONE_MODULE_PER_FILE",
-   .description = "Only one class/interface/package/module per file",
-   .check = CheckOneModulePerFile},
+     .description = "Only one class/interface/package/module per file",
+     .check = CheckOneModulePerFile},
 });
 
 constexpr size_t AllRulesSize = allRules.size();
@@ -404,8 +405,12 @@ const auto globalRules = std::to_array<GlobalRule>({
      .description = "Include directive must not reference a path",
      .check = CheckIncludeWithoutPath},
     {.idName = "CONDITIONAL_BLOCKS_CROSS_FILE",
-     .description = "ifdef/ifndef compiler directives should have their corresponding endif directive in the same file.",
+     .description = "ifdef/ifndef compiler directives should have their "
+                    "corresponding endif directive in the same file.",
      .check = CheckConditionalBlocksCrossFile},
+    {.idName = "CONSTRUCTS_CROSS_FILE",
+     .description = "Language constructs must start and end in the same file",
+     .check = CheckConstructsCrossFile},
 });
 
 constexpr size_t AllGlobalRulesSize = globalRules.size();

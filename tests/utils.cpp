@@ -167,4 +167,32 @@ void CheckWithErrorsExpected(
     ASSERT_EQ(hasError, true);
   }
 }
+
+void CheckSingleFileWithErrorsExpected(
+    const fs::path& file_path, verihogg_lint::LintIdEnum errorIdExpected,
+    const std::unordered_set<SURELOG::ErrorDefinition::ErrorType>& ignoreList,
+    const std::function<void(SL::Design*, SL::ErrorContainer*,
+                             SL::SymbolTable*)>& check_func) {
+  std::cout << "TESTING FILE:" << file_path << "\n";
+  auto symbols = std::make_unique<SURELOG::SymbolTable>();
+  auto errors = std::make_unique<SURELOG::ErrorContainer>(symbols.get());
+
+  SL::Design* design =
+      GetDesignFromPath(file_path, errors.get(), symbols.get());
+  check_func(design, errors.get(), symbols.get());
+  errors->printMessages();
+
+  auto errorVector = errors.get()->getErrors();
+  ASSERT_NE(errorVector.size(), 0);
+  bool hasError = false;
+  for (auto& error : errorVector) {
+    SURELOG::ErrorDefinition::ErrorType type = error.getType();
+    if (ignoreList.count(type) > 0) {
+      continue;
+    }
+    hasError = true;
+    ASSERT_EQ(type, errorIdExpected);
+  }
+  ASSERT_EQ(hasError, true);
+}
 }  // namespace global

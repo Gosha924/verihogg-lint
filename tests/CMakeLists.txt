@@ -284,3 +284,21 @@ target_include_directories(conditional_blocks_cross_file_test
 include(GoogleTest)
 gtest_discover_tests(conditional_blocks_cross_file_test)
 
+add_executable(constructs_cross_file_test $<TARGET_OBJECTS:verihoggLintLib> constructs_cross_file_test.cpp utils.cpp)
+
+target_link_libraries(constructs_cross_file_test PUBLIC verihoggLintLib)
+target_link_libraries(constructs_cross_file_test PUBLIC gtest gtest_main)
+target_link_libraries(constructs_cross_file_test PUBLIC ${GTEST_LIBRARY})
+
+target_include_directories(constructs_cross_file_test
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
+    ${SURELOG_INCLUDE_DIR}
+    ${GTEST_INCLUDE_DIR}
+)
+
+include(GoogleTest)
+gtest_discover_tests(constructs_cross_file_test)
+

@@ -92,6 +92,7 @@ enum LintIdEnum : uint16_t {
   LINT_ONE_MODULE_PER_FILE,
   LINT_INCLUDE_WITH_PATH,
   LINT_CONDITIONAL_BLOCKS_CROSS_FILE,
+  LINT_CONSTRUCTS_CROSS_FILE,
 };
 // NOLINTEND(cppcoreguidelines-use-enum-class)
 
@@ -317,13 +318,16 @@ inline constexpr std::array kLintRules = {
     LintRuleInfo{.type = LINT_ILLEGAL_CHECKER_INSTANCE,
                  .text = "Illegal checker instance %s"},
     LintRuleInfo{.type = LINT_ILLEGAL_FILE_EXTENSION,
-                .text = "File has illegal extension '%s': ""only .sv and .svh are allowed"},
-    LintRuleInfo{.type = LINT_ONE_MODULE_PER_FILE,
-                .text = "%s"},
+                 .text = "File has illegal extension '%s': "
+                         "only .sv and .svh are allowed"},
+    LintRuleInfo{.type = LINT_ONE_MODULE_PER_FILE, .text = "%s"},
     LintRuleInfo{.type = LINT_INCLUDE_WITH_PATH,
-                .text = "Include directive uses a path '%s'."},
-    LintRuleInfo{.type = LINT_CONDITIONAL_BLOCKS_CROSS_FILE,
-                .text = "Conditional preprocessing block is not balanced in file '%s'"}
+                 .text = "Include directive uses a path '%s'."},
+    LintRuleInfo{
+        .type = LINT_CONDITIONAL_BLOCKS_CROSS_FILE,
+        .text = "Conditional preprocessing block is not balanced in file '%s'"},
+    LintRuleInfo{.type = LINT_CONSTRUCTS_CROSS_FILE,
+                 .text = "Language construct crosses file boundary: %s"},
 };
 
 inline void RegisterLintRules() {
