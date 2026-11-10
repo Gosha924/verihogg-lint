@@ -1,304 +1,445 @@
-add_executable(autofix_unit_tests
-    unit/test_replacements.cpp
-    unit/test_source_manager.cpp
-    unit/test_diff.cpp
-)
-
-target_link_libraries(autofix_unit_tests PUBLIC verihoggLintLib)
-target_link_libraries(autofix_unit_tests PUBLIC gtest gtest_main)
-target_link_libraries(autofix_unit_tests PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(autofix_unit_tests
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(autofix_unit_tests)
-
-set(NON_STANDARD_CHECK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/NonStandardChecks")
-
-add_executable(autofix_check_test autofix_check.cpp)
-
-target_link_libraries(autofix_check_test PUBLIC verihoggLintLib)
-target_link_libraries(autofix_check_test PUBLIC gtest gtest_main)
-target_link_libraries(autofix_check_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(autofix_check_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-target_compile_definitions(autofix_check_test PRIVATE
-  VERIHOGG_TEST_NON_STANDARD_ROOT="${NON_STANDARD_CHECK_ROOT}"
-)
-
-gtest_discover_tests(autofix_check_test)
-
-add_executable(class_checks_test $<TARGET_OBJECTS:verihoggLintLib> class_checks_test.cpp utils.cpp)
-
-target_link_libraries(class_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(class_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(class_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(class_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-  )
-
-add_executable(configurations_checks_test $<TARGET_OBJECTS:verihoggLintLib> configurations_checks_test.cpp utils.cpp)
-
-target_link_libraries(configurations_checks_test
-  PUBLIC
-   verihoggLintLib
-   gtest gtest_main
-   ${GTEST_LIBRARY}
-   ${SURELOG_LIBRARY}
-   ${UHDM_LIBRARY}
-   ${CAPNP_LIBRARY}
-   ${ANTLR_LIBRARY}
-   ${ZLIB_LIBRARY}
-)
-
-target_include_directories(configurations_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-add_executable(non_standard_checks_test $<TARGET_OBJECTS:verihoggLintLib> Non_standard_check.cpp)
-
-target_link_libraries(non_standard_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(non_standard_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(non_standard_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(non_standard_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-add_executable(event_checks_test $<TARGET_OBJECTS:verihoggLintLib> event_checks_test.cpp)
-
-target_link_libraries(event_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(event_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(event_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(event_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-set(NON_STANDARD_CHECK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/NonStandardChecks")
-
-target_compile_definitions(non_standard_checks_test PRIVATE
-  VERIHOGG_TEST_NON_STANDARD_ROOT="${NON_STANDARD_CHECK_ROOT}"
-)
-
-
-add_executable(assignment_pattern_checks_test $<TARGET_OBJECTS:verihoggLintLib> assignment_pattern_checks_test.cpp)
-
-target_link_libraries(assignment_pattern_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(assignment_pattern_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(assignment_pattern_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(assignment_pattern_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-include(GoogleTest)
-gtest_discover_tests(event_checks_test)
-
-add_executable(cover_group_checks_test $<TARGET_OBJECTS:verihoggLintLib> cover_group_checks_test.cpp)
-
-target_link_libraries(cover_group_checks_test PUBLIC verihoggLintLib gtest gtest_main ${GTEST_LIBRARY})
-target_include_directories(cover_group_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-add_executable(associated_types_checks_test $<TARGET_OBJECTS:verihoggLintLib> associated_types_checks_test.cpp)
-
-target_link_libraries(associated_types_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(associated_types_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(associated_types_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(associated_types_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-gtest_discover_tests(associated_types_checks_test)
-
-include(GoogleTest)
-gtest_discover_tests(class_checks_test)
-gtest_discover_tests(non_standard_checks_test)
-gtest_discover_tests(assignment_pattern_checks_test)
-gtest_discover_tests(configurations_checks_test)
-gtest_discover_tests(cover_group_checks_test)
-
-add_executable(enum_checks_test $<TARGET_OBJECTS:verihoggLintLib> enum_checks_test.cpp)
-
-target_link_libraries(enum_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(enum_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(enum_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(enum_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(enum_checks_test)
-
-add_executable(cli_test $<TARGET_OBJECTS:verihoggLintLib> cli_test.cpp)
-
-target_link_libraries(cli_test PUBLIC verihoggLintLib)
-target_link_libraries(cli_test PUBLIC gtest gtest_main)
-target_link_libraries(cli_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(cli_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-add_executable(checker_checks_test $<TARGET_OBJECTS:verihoggLintLib> checker_checks_test.cpp)
-
-target_link_libraries(checker_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(checker_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(checker_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(checker_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-gtest_discover_tests(cli_test)
-gtest_discover_tests(checker_checks_test)
-
-
-add_executable(file_extensions_checks_test $<TARGET_OBJECTS:verihoggLintLib> file_extensions_checks_test.cpp utils.cpp)
-
-target_link_libraries(file_extensions_checks_test PUBLIC verihoggLintLib)
-target_link_libraries(file_extensions_checks_test PUBLIC gtest gtest_main)
-target_link_libraries(file_extensions_checks_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(file_extensions_checks_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(file_extensions_checks_test)
-
-add_executable(one_module_per_file_test $<TARGET_OBJECTS:verihoggLintLib> one_module_per_file_test.cpp utils.cpp)
-
-target_link_libraries(one_module_per_file_test PUBLIC verihoggLintLib)
-target_link_libraries(one_module_per_file_test PUBLIC gtest gtest_main)
-target_link_libraries(one_module_per_file_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(one_module_per_file_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(one_module_per_file_test)
-
-add_executable(include_without_path_test $<TARGET_OBJECTS:verihoggLintLib> include_without_path_test.cpp utils.cpp)
-
-target_link_libraries(include_without_path_test PUBLIC verihoggLintLib)
-target_link_libraries(include_without_path_test PUBLIC gtest gtest_main)
-target_link_libraries(include_without_path_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(include_without_path_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(include_without_path_test)
-
-add_executable(conditional_blocks_cross_file_test $<TARGET_OBJECTS:verihoggLintLib> conditional_blocks_cross_file_test.cpp utils.cpp)
-
-target_link_libraries(conditional_blocks_cross_file_test PUBLIC verihoggLintLib)
-target_link_libraries(conditional_blocks_cross_file_test PUBLIC gtest gtest_main)
-target_link_libraries(conditional_blocks_cross_file_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(conditional_blocks_cross_file_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(conditional_blocks_cross_file_test)
-
-add_executable(constructs_cross_file_test $<TARGET_OBJECTS:verihoggLintLib> constructs_cross_file_test.cpp utils.cpp)
-
-target_link_libraries(constructs_cross_file_test PUBLIC verihoggLintLib)
-target_link_libraries(constructs_cross_file_test PUBLIC gtest gtest_main)
-target_link_libraries(constructs_cross_file_test PUBLIC ${GTEST_LIBRARY})
-
-target_include_directories(constructs_cross_file_test
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tests>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/linter/include>
-    ${SURELOG_INCLUDE_DIR}
-    ${GTEST_INCLUDE_DIR}
-)
-
-include(GoogleTest)
-gtest_discover_tests(constructs_cross_file_test)
-
+add_executable(autofix_unit_tests unit / test_replacements.cpp unit /
+               test_source_manager.cpp unit / test_diff.cpp)
+
+    target_link_libraries(autofix_unit_tests PUBLIC verihoggLintLib) target_link_libraries(
+        autofix_unit_tests PUBLIC gtest
+            gtest_main) target_link_libraries(autofix_unit_tests PUBLIC ${
+        GTEST_LIBRARY})
+
+        target_include_directories(
+            autofix_unit_tests PUBLIC
+                $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include>
+                    $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /../
+                      linter / include>
+                        ${SURELOG_INCLUDE_DIR} ${GTEST_INCLUDE_DIR})
+
+            include(GoogleTest) gtest_discover_tests(autofix_unit_tests)
+
+                set(NON_STANDARD_CHECK_ROOT
+                    "${CMAKE_CURRENT_SOURCE_DIR}/NonStandardChecks")
+
+                    add_executable(autofix_check_test autofix_check.cpp)
+
+                        target_link_libraries(autofix_check_test PUBLIC verihoggLintLib) target_link_libraries(
+                            autofix_check_test PUBLIC gtest
+                                gtest_main) target_link_libraries(autofix_check_test
+                                                                      PUBLIC ${
+                                                                          GTEST_LIBRARY})
+
+                            target_include_directories(
+                                autofix_check_test PUBLIC $<
+                                    BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                    include>
+                                    $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                          ../ linter / include>
+                                        ${SURELOG_INCLUDE_DIR} ${
+                                            GTEST_INCLUDE_DIR})
+
+                                target_compile_definitions(
+                                    autofix_check_test PRIVATE
+                                        VERIHOGG_TEST_NON_STANDARD_ROOT =
+                                            "${NON_STANDARD_CHECK_ROOT}")
+
+                                    gtest_discover_tests(autofix_check_test)
+
+                                        add_executable(
+                                            class_checks_test $<
+                                                TARGET_OBJECTS : verihoggLintLib>
+                                                class_checks_test.cpp utils.cpp)
+
+                                            target_link_libraries(class_checks_test PUBLIC verihoggLintLib) target_link_libraries(
+                                                class_checks_test PUBLIC gtest
+                                                    gtest_main) target_link_libraries(class_checks_test PUBLIC ${
+                                                GTEST_LIBRARY})
+
+                                                target_include_directories(
+                                                    class_checks_test PUBLIC $<
+                                                        BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                        tests>
+                                                        $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                          include>
+                                                            $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                              linter / include>
+                                                                ${SURELOG_INCLUDE_DIR} ${
+                                                                    GTEST_INCLUDE_DIR})
+
+                                                    add_executable(
+                                                        configurations_checks_test
+                                                            $<TARGET_OBJECTS : verihoggLintLib>
+                                                                configurations_checks_test
+                                                                    .cpp utils
+                                                                    .cpp)
+
+                                                        target_link_libraries(
+                                                            configurations_checks_test PUBLIC verihoggLintLib
+                                                                gtest gtest_main ${
+                                                                    GTEST_LIBRARY} ${
+                                                                    SURELOG_LIBRARY} ${
+                                                                    UHDM_LIBRARY} ${
+                                                                    CAPNP_LIBRARY} ${
+                                                                    ANTLR_LIBRARY} ${
+                                                                    ZLIB_LIBRARY})
+
+                                                            target_include_directories(
+                                                                configurations_checks_test PUBLIC $<
+                                                                    BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                    tests>
+                                                                    $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                      include>
+                                                                        $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                          linter /
+                                                                          include>
+                                                                            ${SURELOG_INCLUDE_DIR} ${
+                                                                                GTEST_INCLUDE_DIR})
+
+                                                                add_executable(
+                                                                    non_standard_checks_test
+                                                                        $<TARGET_OBJECTS : verihoggLintLib>
+                                                                            Non_standard_check
+                                                                                .cpp)
+
+                                                                    target_link_libraries(non_standard_checks_test PUBLIC verihoggLintLib) target_link_libraries(
+                                                                        non_standard_checks_test PUBLIC gtest
+                                                                            gtest_main) target_link_libraries(non_standard_checks_test PUBLIC ${
+                                                                        GTEST_LIBRARY})
+
+                                                                        target_include_directories(
+                                                                            non_standard_checks_test PUBLIC $<
+                                                                                BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                include>
+                                                                                $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                  linter /
+                                                                                  include>
+                                                                                    ${SURELOG_INCLUDE_DIR} ${
+                                                                                        GTEST_INCLUDE_DIR})
+                                                                            add_executable(
+                                                                                event_checks_test $<
+                                                                                    TARGET_OBJECTS : verihoggLintLib>
+                                                                                    event_checks_test
+                                                                                        .cpp)
+
+                                                                                target_link_libraries(
+                                                                                    event_checks_test PUBLIC verihoggLintLib) target_link_libraries(event_checks_test
+                                                                                                                                                        PUBLIC
+                                                                                                                                                            gtest
+                                                                                                                                                                gtest_main) target_link_libraries(event_checks_test PUBLIC ${
+                                                                                    GTEST_LIBRARY})
+
+                                                                                    target_include_directories(
+                                                                                        event_checks_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include> $<
+                                                                                            BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                            linter /
+                                                                                            include>
+                                                                                            ${SURELOG_INCLUDE_DIR} ${
+                                                                                                GTEST_INCLUDE_DIR})
+
+                                                                                        set(NON_STANDARD_CHECK_ROOT
+                                                                                            "${CMAKE_CURRENT_SOURCE_DIR}/NonStandardChecks")
+
+                                                                                            target_compile_definitions(
+                                                                                                non_standard_checks_test PRIVATE VERIHOGG_TEST_NON_STANDARD_ROOT =
+                                                                                                    "${NON_STANDARD_CHECK_ROOT}")
+
+                                                                                                add_executable(
+                                                                                                    assignment_pattern_checks_test $<
+                                                                                                        TARGET_OBJECTS : verihoggLintLib>
+                                                                                                        assignment_pattern_checks_test
+                                                                                                            .cpp)
+
+                                                                                                    target_link_libraries(assignment_pattern_checks_test
+                                                                                                                              PUBLIC verihoggLintLib) target_link_libraries(assignment_pattern_checks_test PUBLIC
+                                                                                                                                                                                gtest
+                                                                                                                                                                                    gtest_main) target_link_libraries(assignment_pattern_checks_test PUBLIC ${
+                                                                                                        GTEST_LIBRARY})
+
+                                                                                                        target_include_directories(assignment_pattern_checks_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                      linter /
+                                                                                                                                                                                                                                      include>
+                                                                                                                                       ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                           GTEST_INCLUDE_DIR}) include(GoogleTest) gtest_discover_tests(event_checks_test)
+
+                                                                                                            add_executable(
+                                                                                                                cover_group_checks_test
+                                                                                                                    $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                        cover_group_checks_test
+                                                                                                                            .cpp)
+
+                                                                                                                target_link_libraries(
+                                                                                                                    cover_group_checks_test
+                                                                                                                        PUBLIC
+                                                                                                                            verihoggLintLib gtest gtest_main ${GTEST_LIBRARY}) target_include_directories(cover_group_checks_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / linter / include> ${
+                                                                                                                    SURELOG_INCLUDE_DIR} ${
+                                                                                                                    GTEST_INCLUDE_DIR})
+
+                                                                                                                    add_executable(
+                                                                                                                        associated_types_checks_test
+                                                                                                                            $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                associated_types_checks_test
+                                                                                                                                    .cpp)
+
+                                                                                                                        target_link_libraries(associated_types_checks_test
+                                                                                                                                                  PUBLIC verihoggLintLib) target_link_libraries(associated_types_checks_test PUBLIC gtest gtest_main) target_link_libraries(associated_types_checks_test PUBLIC ${
+                                                                                                                            GTEST_LIBRARY})
+
+                                                                                                                            target_include_directories(
+                                                                                                                                associated_types_checks_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                 linter /
+                                                                                                                                                                                                                                 include>
+                                                                                                                                    ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                        GTEST_INCLUDE_DIR})
+
+                                                                                                                                gtest_discover_tests(
+                                                                                                                                    associated_types_checks_test)
+
+                                                                                                                                    include(GoogleTest) gtest_discover_tests(
+                                                                                                                                        class_checks_test) gtest_discover_tests(non_standard_checks_test)
+                                                                                                                                        gtest_discover_tests(
+                                                                                                                                            assignment_pattern_checks_test) gtest_discover_tests(configurations_checks_test) gtest_discover_tests(cover_group_checks_test)
+
+                                                                                                                                            add_executable(
+                                                                                                                                                enum_checks_test
+                                                                                                                                                    $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                        enum_checks_test
+                                                                                                                                                            .cpp)
+
+                                                                                                                                                target_link_libraries(
+                                                                                                                                                    enum_checks_test
+                                                                                                                                                        PUBLIC
+                                                                                                                                                            verihoggLintLib)
+                                                                                                                                                    target_link_libraries(
+                                                                                                                                                        enum_checks_test
+                                                                                                                                                            PUBLIC gtest
+                                                                                                                                                                gtest_main)
+                                                                                                                                                        target_link_libraries(
+                                                                                                                                                            enum_checks_test PUBLIC
+                                                                                                                                                                ${GTEST_LIBRARY})
+
+                                                                                                                                                            target_include_directories(
+                                                                                                                                                                enum_checks_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                          include>
+                                                                                                                                                                    $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                      linter /
+                                                                                                                                                                      include>
+                                                                                                                                                                        ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                            GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                include(GoogleTest) gtest_discover_tests(
+                                                                                                                                                                    enum_checks_test)
+
+                                                                                                                                                                    add_executable(cli_test $<TARGET_OBJECTS : verihoggLintLib> cli_test
+                                                                                                                                                                                       .cpp)
+
+                                                                                                                                                                        target_link_libraries(cli_test PUBLIC verihoggLintLib) target_link_libraries(
+                                                                                                                                                                            cli_test PUBLIC
+                                                                                                                                                                                gtest gtest_main) target_link_libraries(cli_test PUBLIC ${
+                                                                                                                                                                            GTEST_LIBRARY})
+
+                                                                                                                                                                            target_include_directories(cli_test
+                                                                                                                                                                                                           PUBLIC $<
+                                                                                                                                                                                                               BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                               include>
+                                                                                                                                                                                                               $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                 linter / include>
+                                                                                                                                                                                                                   ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                       GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                add_executable(
+                                                                                                                                                                                    checker_checks_test
+                                                                                                                                                                                        $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                            checker_checks_test
+                                                                                                                                                                                                .cpp)
+
+                                                                                                                                                                                    target_link_libraries(checker_checks_test PUBLIC verihoggLintLib) target_link_libraries(checker_checks_test
+                                                                                                                                                                                                                                                                                PUBLIC gtest
+                                                                                                                                                                                                                                                                                    gtest_main) target_link_libraries(checker_checks_test PUBLIC ${
+                                                                                                                                                                                        GTEST_LIBRARY})
+
+                                                                                                                                                                                        target_include_directories(checker_checks_test
+                                                                                                                                                                                                                       PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include>
+                                                                                                                                                                                                                           $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                             linter /
+                                                                                                                                                                                                                             include>
+                                                                                                                                                                                                                               ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                   GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                            gtest_discover_tests(
+                                                                                                                                                                                                cli_test) gtest_discover_tests(checker_checks_test)
+
+                                                                                                                                                                                                add_executable(
+                                                                                                                                                                                                    file_extensions_checks_test
+                                                                                                                                                                                                        $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                                            file_extensions_checks_test
+                                                                                                                                                                                                                .cpp
+                                                                                                                                                                                                                    utils
+                                                                                                                                                                                                                .cpp)
+
+                                                                                                                                                                                                    target_link_libraries(
+                                                                                                                                                                                                        file_extensions_checks_test
+                                                                                                                                                                                                            PUBLIC
+                                                                                                                                                                                                                verihoggLintLib)
+                                                                                                                                                                                                        target_link_libraries(file_extensions_checks_test PUBLIC gtest
+                                                                                                                                                                                                                                  gtest_main)
+                                                                                                                                                                                                            target_link_libraries(
+                                                                                                                                                                                                                file_extensions_checks_test
+                                                                                                                                                                                                                    PUBLIC ${
+                                                                                                                                                                                                                        GTEST_LIBRARY})
+
+                                                                                                                                                                                                                target_include_directories(file_extensions_checks_test
+                                                                                                                                                                                                                                               PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / tests>
+                                                                                                                                                                                                                                                   $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                     include>
+                                                                                                                                                                                                                                                       $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                         linter / include>
+                                                                                                                                                                                                                                                           ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                                               GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                                                    include(
+                                                                                                                                                                                                                        GoogleTest)
+                                                                                                                                                                                                                        gtest_discover_tests(
+                                                                                                                                                                                                                            file_extensions_checks_test)
+
+                                                                                                                                                                                                                            add_executable(
+                                                                                                                                                                                                                                one_module_per_file_test $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                                                                    one_module_per_file_test
+                                                                                                                                                                                                                                        .cpp
+                                                                                                                                                                                                                                            utils
+                                                                                                                                                                                                                                        .cpp)
+
+                                                                                                                                                                                                                                target_link_libraries(one_module_per_file_test
+                                                                                                                                                                                                                                                          PUBLIC verihoggLintLib) target_link_libraries(one_module_per_file_test PUBLIC gtest gtest_main)
+                                                                                                                                                                                                                                    target_link_libraries(
+                                                                                                                                                                                                                                        one_module_per_file_test
+                                                                                                                                                                                                                                            PUBLIC ${
+                                                                                                                                                                                                                                                GTEST_LIBRARY})
+
+                                                                                                                                                                                                                                        target_include_directories(
+                                                                                                                                                                                                                                            one_module_per_file_test
+                                                                                                                                                                                                                                                PUBLIC
+                                                                                                                                                                                                                                                    $<
+                                                                                                                                                                                                                                                        BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                        tests>
+                                                                                                                                                                                                                                                        $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                          include>
+                                                                                                                                                                                                                                                            $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / linter /
+                                                                                                                                                                                                                                                              include>
+                                                                                                                                                                                                                                                                ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                                                    GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                                                                            include(
+                                                                                                                                                                                                                                                GoogleTest)
+                                                                                                                                                                                                                                                gtest_discover_tests(
+                                                                                                                                                                                                                                                    one_module_per_file_test)
+
+                                                                                                                                                                                                                                                    add_executable(include_without_path_test $<
+                                                                                                                                                                                                                                                                       TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                                                                                                       include_without_path_test
+                                                                                                                                                                                                                                                                           .cpp
+                                                                                                                                                                                                                                                                               utils
+                                                                                                                                                                                                                                                                           .cpp)
+
+                                                                                                                                                                                                                                                        target_link_libraries(include_without_path_test
+                                                                                                                                                                                                                                                                                  PUBLIC
+                                                                                                                                                                                                                                                                                      verihoggLintLib) target_link_libraries(include_without_path_test
+                                                                                                                                                                                                                                                                                                                                 PUBLIC gtest
+                                                                                                                                                                                                                                                                                                                                     gtest_main)
+                                                                                                                                                                                                                                                            target_link_libraries(
+                                                                                                                                                                                                                                                                include_without_path_test
+                                                                                                                                                                                                                                                                    PUBLIC ${
+                                                                                                                                                                                                                                                                        GTEST_LIBRARY})
+
+                                                                                                                                                                                                                                                                target_include_directories(include_without_path_test
+                                                                                                                                                                                                                                                                                               PUBLIC
+                                                                                                                                                                                                                                                                                                   $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                     tests>
+                                                                                                                                                                                                                                                                                                       $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                         include>
+                                                                                                                                                                                                                                                                                                           $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                             linter /
+                                                                                                                                                                                                                                                                                                             include>
+                                                                                                                                                                                                                                                                                                               ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                                                                                                   GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                                                                                                    include(
+                                                                                                                                                                                                                                                                        GoogleTest)
+                                                                                                                                                                                                                                                                        gtest_discover_tests(
+                                                                                                                                                                                                                                                                            include_without_path_test)
+
+                                                                                                                                                                                                                                                                            add_executable(conditional_blocks_cross_file_test
+                                                                                                                                                                                                                                                                                               $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                                                                                                                                   conditional_blocks_cross_file_test
+                                                                                                                                                                                                                                                                                                       .cpp
+                                                                                                                                                                                                                                                                                                           utils
+                                                                                                                                                                                                                                                                                                       .cpp)
+
+                                                                                                                                                                                                                                                                                target_link_libraries(
+                                                                                                                                                                                                                                                                                    conditional_blocks_cross_file_test
+                                                                                                                                                                                                                                                                                        PUBLIC
+                                                                                                                                                                                                                                                                                            verihoggLintLib)
+                                                                                                                                                                                                                                                                                    target_link_libraries(
+                                                                                                                                                                                                                                                                                        conditional_blocks_cross_file_test PUBLIC
+                                                                                                                                                                                                                                                                                            gtest
+                                                                                                                                                                                                                                                                                                gtest_main)
+                                                                                                                                                                                                                                                                                        target_link_libraries(
+                                                                                                                                                                                                                                                                                            conditional_blocks_cross_file_test
+                                                                                                                                                                                                                                                                                                PUBLIC
+                                                                                                                                                                                                                                                                                                    ${GTEST_LIBRARY})
+
+                                                                                                                                                                                                                                                                                            target_include_directories(
+                                                                                                                                                                                                                                                                                                conditional_blocks_cross_file_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / tests> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                                                                                                                     include>
+                                                                                                                                                                                                                                                                                                    $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                      linter /
+                                                                                                                                                                                                                                                                                                      include>
+                                                                                                                                                                                                                                                                                                        ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                                                                                            GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                                                                                                                                include(
+                                                                                                                                                                                                                                                                                                    GoogleTest)
+                                                                                                                                                                                                                                                                                                    gtest_discover_tests(
+                                                                                                                                                                                                                                                                                                        conditional_blocks_cross_file_test)
+
+                                                                                                                                                                                                                                                                                                        add_executable(constructs_cross_file_test
+                                                                                                                                                                                                                                                                                                                           $<TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                                                                                                                                                               constructs_cross_file_test
+                                                                                                                                                                                                                                                                                                                                   .cpp
+                                                                                                                                                                                                                                                                                                                                       utils
+                                                                                                                                                                                                                                                                                                                                   .cpp)
+
+                                                                                                                                                                                                                                                                                                            target_link_libraries(
+                                                                                                                                                                                                                                                                                                                constructs_cross_file_test
+                                                                                                                                                                                                                                                                                                                    PUBLIC
+                                                                                                                                                                                                                                                                                                                        verihoggLintLib)
+                                                                                                                                                                                                                                                                                                                target_link_libraries(
+                                                                                                                                                                                                                                                                                                                    constructs_cross_file_test
+                                                                                                                                                                                                                                                                                                                        PUBLIC gtest
+                                                                                                                                                                                                                                                                                                                            gtest_main)
+                                                                                                                                                                                                                                                                                                                    target_link_libraries(constructs_cross_file_test PUBLIC ${
+                                                                                                                                                                                                                                                                                                                        GTEST_LIBRARY})
+
+                                                                                                                                                                                                                                                                                                                        target_include_directories(constructs_cross_file_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / tests> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                                                                                                                                                                include>
+                                                                                                                                                                                                                                                                                                                                                       $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} /
+                                                                                                                                                                                                                                                                                                                                                         linter /
+                                                                                                                                                                                                                                                                                                                                                         include>
+                                                                                                                                                                                                                                                                                                                                                           ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                                                                                                                                               GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                                                                                                                                                            include(
+                                                                                                                                                                                                                                                                                                                                GoogleTest) gtest_discover_tests(constructs_cross_file_test)
+
+                                                                                                                                                                                                                                                                                                                                add_executable(no_directives_in_element_files_test $<
+                                                                                                                                                                                                                                                                                                                                                   TARGET_OBJECTS : verihoggLintLib>
+                                                                                                                                                                                                                                                                                                                                                   no_directives_in_element_files_test
+                                                                                                                                                                                                                                                                                                                                                       .cpp
+                                                                                                                                                                                                                                                                                                                                                           utils
+                                                                                                                                                                                                                                                                                                                                                       .cpp)
+
+                                                                                                                                                                                                                                                                                                                                    target_link_libraries(no_directives_in_element_files_test PUBLIC verihoggLintLib) target_link_libraries(no_directives_in_element_files_test PUBLIC gtest gtest_main) target_link_libraries(no_directives_in_element_files_test
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PUBLIC
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ${GTEST_LIBRARY})
+
+                                                                                                                                                                                                                                                                                                                                        target_include_directories(
+                                                                                                                                                                                                                                                                                                                                            no_directives_in_element_files_test PUBLIC $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / tests> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / include> $<BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR} / linter / include> ${SURELOG_INCLUDE_DIR} ${
+                                                                                                                                                                                                                                                                                                                                                GTEST_INCLUDE_DIR})
+
+                                                                                                                                                                                                                                                                                                                                            include(GoogleTest) gtest_discover_tests(no_directives_in_element_files_test)

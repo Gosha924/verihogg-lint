@@ -75,6 +75,7 @@
 #include "rules/modport_import_export_port.h"
 #include "rules/multiple_bins.h"
 #include "rules/multiple_dot_star_connection.h"
+#include "rules/no_directives_in_element_files.h"
 #include "rules/nof_parameter_override.h"
 #include "rules/one_module_per_file.h"
 #include "rules/parameter_dynamic_array.h"
@@ -411,6 +412,9 @@ const auto globalRules = std::to_array<GlobalRule>({
     {.idName = "CONSTRUCTS_CROSS_FILE",
      .description = "Language constructs must start and end in the same file",
      .check = CheckConstructsCrossFile},
+    {.idName = "NO_DIRECTIVES_IN_ELEMENT_FILES",
+     .description = "Do not use directives in files containing elements",
+     .check = CheckNoDirectivesInElementFiles},
 });
 
 constexpr size_t AllGlobalRulesSize = globalRules.size();

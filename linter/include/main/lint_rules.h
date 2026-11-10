@@ -93,6 +93,7 @@ enum LintIdEnum : uint16_t {
   LINT_INCLUDE_WITH_PATH,
   LINT_CONDITIONAL_BLOCKS_CROSS_FILE,
   LINT_CONSTRUCTS_CROSS_FILE,
+  LINT_NO_DIRECTIVES_IN_ELEMENT_FILES,
 };
 // NOLINTEND(cppcoreguidelines-use-enum-class)
 
@@ -328,6 +329,9 @@ inline constexpr std::array kLintRules = {
         .text = "Conditional preprocessing block is not balanced in file '%s'"},
     LintRuleInfo{.type = LINT_CONSTRUCTS_CROSS_FILE,
                  .text = "Language construct crosses file boundary: %s"},
+    LintRuleInfo{
+        .type = LINT_NO_DIRECTIVES_IN_ELEMENT_FILES,
+        .text = "Do not use directives in files containing elements: %s"},
 };
 
 inline void RegisterLintRules() {
